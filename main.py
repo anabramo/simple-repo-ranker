@@ -82,11 +82,12 @@ def generate_ai_report(parameters, data):
             ],
             temperature=parameters['temperature']
         )
+        message = response['choices'][0]['message']['content']
 
     except Exception as ex:
-        response = f"Fail code review process for file.\n\n`{str(ex)}`"
+        message = f"Fail code review process for file.\n\n`{str(ex)}`"
 
-    return response
+    return message
 
 
 def extract_repo_data(repo: str, parameters: dict):
