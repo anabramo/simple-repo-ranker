@@ -27,6 +27,6 @@ jobs:
         run: |
           git config --global user.name 'anabramo'
           git config --global user.email 'andrey.abramov@bjss.com'
-          git add .
+          git add docs
           git commit -am "Updates" || exit 0
           git push https://${{ secrets.GH_TOKEN }}@github.com/anabramo/simple-repo-ranker.git
