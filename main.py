@@ -148,7 +148,8 @@ def extract_repo_data(repo: str, parameters: dict):
 
 def make_prompt() -> str:
     review_prompt = (f"Review this json file with repository information and"
-                    f"return a list of repository name by popularity. Respond as a markdown format list and nothing else. Here is the data")
+                    f"return a list of repository names by popularity. "
+                    f"Respond as a markdown format list and a short explanation of the rankings. Here is the data")
 
     return review_prompt
 
