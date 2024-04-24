@@ -19,5 +19,7 @@ jobs:
           openai-engine: "gpt-3.5-turbo"
           openai-temperature: 0.0
           openai-max-tokens: 4096
+      - name: Checkout repository
+        uses: actions/checkout@v3
       - name: build Docs
         run: npm i && npm run build:docs
