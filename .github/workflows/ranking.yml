@@ -1,4 +1,4 @@
-name: ChatGPT Code Review
+name: Simple Repo Ranker
 
 on:
   schedule:
@@ -9,9 +9,9 @@ on:
 jobs:
   code_review_job:
     runs-on: ubuntu-latest
-    name: ChatGPT reviewer
+    name: Simple Repo Ranker
     steps:
-      - name: ChatGPT reviewer code
+      - name: Simple Repo Ranker code
         uses: anabramo/simple-repo-ranker@main
         with:
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}

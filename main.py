@@ -83,7 +83,7 @@ if __name__ == "__main__":
     github_client = Github(args.github_token)
 
     review_parameters = {
-        "prompt" : make_prompt(dev_lang=args.dev_lang),
+        "prompt" : make_prompt(),
         "temperature" : float(args.openai_temperature),
         "max_tokens" : int(args.openai_max_tokens),
         "model" : args.openai_engine
