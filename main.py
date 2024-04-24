@@ -8,6 +8,45 @@ from github import Github, PullRequest
 github_client: Github
 parameters: dict
 
+from github import Github
+
+def commit_file_to_repo(repo_name, file_path, file_content, commit_message):
+    """
+    Commit a file to a given GitHub repository.
+
+    Args:
+    github_token (str): GitHub access token.
+    repo_name (str): Repository name in the format 'username/repository'.
+    file_path (str): Path within the repository to place the file.
+    file_content (str): Content to write to the file.
+    commit_message (str): Commit message.
+
+    Returns:
+    bool: True if commit is successful, False otherwise.
+    """
+    try:
+        repo = r'anabramo/simple-repo-ranker'
+        # Get the repository
+        repo = github_client.get_repo(repo_name)
+        
+        # Check if the file already exists in the repository
+        try:
+            contents = repo.get_contents(file_path)
+            # If the file exists, update it
+            repo.update_file(contents.path, commit_message, file_content, contents.sha)
+            print("File updated in the repository.")
+        except:
+            # If the file does not exist, create it
+            repo.create_file(file_path, commit_message, file_content)
+            print("File created in the repository.")
+        
+        return True
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return False
+
+
+
 def repo_rankings(parameters: dict):
 
     repositories = [r'pandas-dev/pandas', r'facebook/react' ]
@@ -18,6 +57,8 @@ def repo_rankings(parameters: dict):
 
     with open('repo_data.json', 'w') as fp:
         json.dump(data, fp)
+
+    commit_file_to_repo('data.json', json.dumps(data), 'Update ranking data')
 
     return data
 
