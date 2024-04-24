@@ -63,14 +63,14 @@ def repo_rankings(parameters: dict):
                        ## Rankings"\n
                        '''
     
-    readme_contents = readme_template + generate_ai_report(data)
+    readme_contents = readme_template + generate_ai_report(parameters, data)
     commit_file_to_repo('README.md', readme_contents, 'Update ranking data')
 
 
     return data
 
 
-def generate_ai_report(data):
+def generate_ai_report(parameters, data):
     try:
         response = openai.ChatCompletion.create(
             model=parameters['model'],
