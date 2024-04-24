@@ -84,7 +84,7 @@ def generate_ai_report(data):
         )
 
     except Exception as ex:
-        message = f"Fail code review process for file.\n\n`{str(ex)}`"
+        response = f"Fail code review process for file.\n\n`{str(ex)}`"
 
     return response
 
