@@ -4,6 +4,7 @@ import json
 import os
 import requests
 from github import Github, PullRequest
+from datetime import datetime, timedelta
 
 github_client: Github
 parameters: dict
@@ -51,14 +52,12 @@ def repo_rankings(parameters: dict):
 
     repositories = [r'pandas-dev/pandas', r'facebook/react' ]
 
-    data = {}
+    data = []
     for repo in repositories:
-        data[repo] = extract_repo_data(repo, parameters)
+        data.append(extract_repo_data(repo, parameters))
 
     with open('repo_data.json', 'w') as fp:
         json.dump(data, fp)
-
-    print(data)
 
     commit_file_to_repo('data.json', json.dumps(data), 'Update ranking data')
 
@@ -96,12 +95,49 @@ def extract_repo_data(repo: str, parameters: dict):
     for contributor in contributors:
         # You might want to store more detailed information about each contributor
         top_contributors.append({
-            'login': contributor.login,
-            'contributions': contributor.contributions
+            'id': contributor.login,
+            'commits': contributor.contributions
         })
     
+    total_commits = repository.get_commits().totalCount
+
+    one_month_ago = datetime.now() - timedelta(days=30)
+    commits_last_month = repository.get_commits(since=one_month_ago).totalCount
+    total_commits_last_month = commits_last_month.totalCount
+
+    total_stars =  repository.stargazers_count
+
+    contributor_commits = {}
+    # Iterate through commits and count per author
+    for commit in commits_last_month:
+        # Not all commits have an associated author object (e.g., if the user has deleted their account)
+        if commit.author:
+            author_login = commit.author.login
+            if author_login in contributor_commits:
+                contributor_commits[author_login] += 1
+            else:
+                contributor_commits[author_login] = 1
+
+    top_contributors_last_month = dict(sorted(contributor_commits.items(), key=lambda item: item[1], reverse=True))
+    top_contributors_last_month_list = []
+    for contributor in top_contributors_last_month:
+        # You might want to store more detailed information about each contributor
+        top_contributors_last_month_list.append({
+            'id': contributor,
+            'commits': top_contributors_last_month[contributor]
+        })
+
     # Return top contributors data
-    return {'top_contributors': top_contributors}
+    data =  {'name': repo,
+            'url': repository.git_url,
+            'commits': total_commits,
+            'stars': total_stars,
+            'commits_last_month': total_commits_last_month,
+            'contributors': top_contributors[:10],
+            'contributors_last_month':  top_contributors_last_month_list[:10]
+            }
+    
+    return data
 
 
 def make_prompt() -> str:
