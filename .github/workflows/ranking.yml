@@ -23,3 +23,10 @@ jobs:
         uses: actions/checkout@v3
       - name: build Docs
         run: npm i && npm run build:docs
+      - name: Commit and push changes
+        run: |
+          git config --global user.name 'anabramo'
+          git config --global user.email 'andrey.abramov@bjss.com'
+          git add .
+          git commit -am "Updates" || exit 0
+          git push https://${{ secrets.GH_TOKEN }}@github.com/
