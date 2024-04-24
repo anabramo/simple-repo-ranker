@@ -56,7 +56,7 @@ def repo_rankings(parameters: dict):
     for repo in repositories:
         data.append(extract_repo_data(repo, parameters))
 
-    commit_file_to_repo('data.json', json.dumps(data), 'Update ranking data')
+    commit_file_to_repo('data/data.json', json.dumps(data), 'Update ranking data')
 
     readme_template = '''# Best repos this month (according to ChatGPT):\n
                        One to two paragraph statement about your project and what it does.\n
