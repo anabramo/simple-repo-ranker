@@ -1,0 +1,21 @@
+name: ChatGPT Code Review
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Runs every day at 00:00 UTC
+
+  workflow_dispatch:
+
+jobs:
+  code_review_job:
+    runs-on: ubuntu-latest
+    name: ChatGPT reviewer
+    steps:
+      - name: ChatGPT reviewer code
+        uses: anabramo/simple-repo-ranker@main
+        with:
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          github-token: ${{ secrets.GH_TOKEN }}
+          openai-engine: "gpt-3.5-turbo"
+          openai-temperature: 0.0
+          openai-max-tokens: 4096 
