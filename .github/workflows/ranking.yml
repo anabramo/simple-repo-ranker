@@ -15,7 +15,7 @@ jobs:
         uses: anabramo/simple-repo-ranker@main
         with:
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
-          github-token: ${{ secrets.GH_TOKEN }}
+          github-token: ${{ secrets.GITUB_TOKEN }}
           openai-engine: "gpt-3.5-turbo"
           openai-temperature: 0.0
           openai-max-tokens: 4096 
