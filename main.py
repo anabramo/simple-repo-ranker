@@ -130,11 +130,13 @@ def extract_repo_data(repo: str, parameters: dict):
     # Return top contributors data
     data =  {'name': repo,
             'url': repository.git_url,
-            'commits': total_commits,
+            'total_commits': total_commits,
             'stars': total_stars,
-            'commits_last_month': total_commits_last_month,
-            'contributors': top_contributors[:10],
-            'contributors_last_month':  top_contributors_last_month_list[:10]
+            #'commits_last_month': total_commits_last_month,
+            'commits': total_commits_last_month,
+            #'total_contributors': top_contributors[:10],
+            #'contributors_last_month':  top_contributors_last_month_list[:10]
+            'contributors':  top_contributors_last_month_list[:10]
             }
     
     return data
