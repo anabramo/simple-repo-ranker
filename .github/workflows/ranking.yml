@@ -29,4 +29,4 @@ jobs:
           git config --global user.email 'andrey.abramov@bjss.com'
           git add .
           git commit -am "Updates" || exit 0
-          git push https://${{ secrets.GH_TOKEN }}@github.com/
+          git push https://${{ secrets.GH_TOKEN }}@github.com/anabramo/simple-repo-ranker.git
