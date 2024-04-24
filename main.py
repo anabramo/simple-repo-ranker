@@ -10,7 +10,7 @@ parameters: dict
 
 from github import Github
 
-def commit_file_to_repo(repo_name, file_path, file_content, commit_message):
+def commit_file_to_repo(file_path, file_content, commit_message):
     """
     Commit a file to a given GitHub repository.
 
@@ -25,7 +25,7 @@ def commit_file_to_repo(repo_name, file_path, file_content, commit_message):
     bool: True if commit is successful, False otherwise.
     """
     try:
-        repo = r'anabramo/simple-repo-ranker'
+        repo_name = r'anabramo/simple-repo-ranker'
         # Get the repository
         repo = github_client.get_repo(repo_name)
         
@@ -57,6 +57,8 @@ def repo_rankings(parameters: dict):
 
     with open('repo_data.json', 'w') as fp:
         json.dump(data, fp)
+
+    print(data)
 
     commit_file_to_repo('data.json', json.dumps(data), 'Update ranking data')
 
