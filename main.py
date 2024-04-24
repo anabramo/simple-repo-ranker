@@ -102,7 +102,7 @@ def extract_repo_data(repo: str, parameters: dict):
     total_commits = repository.get_commits().totalCount
 
     one_month_ago = datetime.now() - timedelta(days=30)
-    commits_last_month = repository.get_commits(since=one_month_ago).totalCount
+    commits_last_month = repository.get_commits(since=one_month_ago)
     total_commits_last_month = commits_last_month.totalCount
 
     total_stars =  repository.stargazers_count
