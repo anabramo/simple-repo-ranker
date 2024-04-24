@@ -50,16 +50,22 @@ def commit_file_to_repo(file_path, file_content, commit_message):
 
 def repo_rankings(parameters: dict):
 
-    repositories = [r'pandas-dev/pandas', r'facebook/react' ]
+    repositories = [r'pandas-dev/pandas', r'facebook/react']
 
     data = []
     for repo in repositories:
         data.append(extract_repo_data(repo, parameters))
 
-    with open('repo_data.json', 'w') as fp:
-        json.dump(data, fp)
-
     commit_file_to_repo('data.json', json.dumps(data), 'Update ranking data')
+
+    readme_template = '''# Best repos this month (according to ChatGPT):\n
+                       One to two paragraph statement about your project and what it does.\n
+                       ## Rankings"\n
+                       '''
+    
+    readme_contents = readme_template + generate_ai_report(data)
+    commit_file_to_repo('README.md', readme_contents, 'Update ranking data')
+
 
     return data
 
@@ -131,7 +137,7 @@ def extract_repo_data(repo: str, parameters: dict):
     data =  {'name': repo,
             'url': repository.git_url,
             'total_commits': total_commits,
-            'stars': total_stars,
+            'total_stars': total_stars,
             #'commits_last_month': total_commits_last_month,
             'commits': total_commits_last_month,
             #'total_contributors': top_contributors[:10],
@@ -143,7 +149,8 @@ def extract_repo_data(repo: str, parameters: dict):
 
 
 def make_prompt() -> str:
-    review_prompt = f"Review this json file with a list of repository information and return a list of repositories by quality"
+    review_prompt = (f"Review this json file with repository information and"
+                    f"return a list of repository name by popularity. Respond with in markdown. Here is the data")
 
     return review_prompt
 
