@@ -58,9 +58,7 @@ def repo_rankings(parameters: dict):
 
     commit_file_to_repo('data/data.json', json.dumps(data), 'Update ranking data')
 
-    readme_template = '''# Best repos this month (according to ChatGPT):\n
-                       ## Rankings\n
-                       '''
+    readme_template = '''# Best repos this month (according to ChatGPT):\n## Rankings\n'''
     
     readme_contents = readme_template + generate_ai_report(parameters, data)
     commit_file_to_repo('README.md', readme_contents, 'Update ranking data')
