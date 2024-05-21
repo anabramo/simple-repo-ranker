@@ -3,8 +3,8 @@
 - facebook/react
 - pandas-dev/pandas
 
-The list of repository names by popularity based on the total number of commits and stars is as follows:
+The list of repository names by popularity, considering both commits and stars, is as follows:
 1. facebook/react
 2. pandas-dev/pandas
 
-The ranking is determined by considering both the total number of commits and stars for each repository. In this case, 'facebook/react' has a higher total number of stars (223197) compared to 'pandas-dev/pandas' (42158), which contributes to its higher popularity ranking despite having a slightly lower total number of commits.
+The ranking is based on the total number of commits and stars for each repository. In this case, the `facebook/react` repository has a higher total number of stars (223,242) compared to the `pandas-dev/pandas` repository (42,167), which contributes significantly to its popularity ranking. Additionally, the `facebook/react` repository also has a higher total number of commits (18,732) compared to the `pandas-dev/pandas` repository (35,043), further solidifying its position as the most popular repository in this dataset.
